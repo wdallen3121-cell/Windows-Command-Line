@@ -1,0 +1,22 @@
+# Basic System Information
+
+## Lab Overview
+This lab covers basic commands such as Ver and system info, used to gain information about an individual system
+
+## Objectives
+- Examine the different information available about a system
+- Understand what the different categories mean
+- Learn to navigate the command-line 
+
+## Key Concepts
+
+| ver | provides the Windows version and build number in a dot sperated numeric format |
+| systeminfo | provides a general summary of the computerand OS running on it. Show information such as OS version, available physical memory and system model |
+| set | shows the current stored settings that dictate how the command-line session and programs operate |
+| Piping | takes the output of a command and uses it as input to another command |
+| more | allows user to view large amounts of information page by page, making it easier to digest |
+| cls | clears the command prompt screen |
+| help | defines a command as to what it does and variables that can be used with the command |
+
+## Security Relevance
+Ver and Systeminfo allow a user to check to what extent the system has been patched and if that particular build is still supported by the vendor.
