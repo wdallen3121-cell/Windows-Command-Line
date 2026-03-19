@@ -1,0 +1,40 @@
+# Windows Command-Line Fundamentals
+
+## Lab Overview
+Examine CLI and it's capabilities and advantages
+
+## Objectives
+- Learn how to access cmd.exe
+- Learn how to login to a remote system using SSH
+
+## Key Concepts
+| Command-Line Interface | text-based interface for executing commands to complete computer-related tasks |
+| SSH(Secure Shell) | network protocol used for secure access and control over remote systems |
+
+## Environment 
+- Platform: TryHackMe.com VM
+- OS: Windows Server 2019
+
+## Access Command-Line
+### Step 1 - Press 'Windows Key'
+Pulls up Windows search menu
+### Step 2 - Type 'Run'
+Pulls up search bar that allows users to open an app/file/folder
+### Step 3 - Type 'cmd.exe'
+This is the name of the executable that opens the command-line interface
+
+## Start SSH session
+### Step 1 - In a terminal, Type: ssh username@network_IPAddress
+Typed in the username of a remote workstation along with the IP address of the device
+### Step 2 - Type 'Yes' when prompted if the user trusts the connection
+When connecting to a remote device for the first time, SSH automatically asks to verify trust
+### Step 3 - Type the password that is associated with the username on the device
+Final login information for accessing the remote system
+
+## Security Relevance
+Command-Line is a primary tool used by cyberprofessionals and malicious actors alike for various tasks. This buil-in service allows for low-level access to systems. Since it operates closer to the OS there are more opportunities for misconfigurations or accidents that could have large implications. The Least Privilege principal should be applied. Since SSH allows for remote access, things like weak passwords and stolen SSH keys can provide access to systems.
+
+## Key Takeaway
+- CLI is faster, cheaper, and uses less system resources making it a far better option for tasks
+Navigating domain hierarchy
+Change User Object passwords=
