@@ -1,0 +1,108 @@
+# File and Disk Management
+
+## Lab Overview
+This lab explores how to browse directories and move files
+
+## Objectives
+- Understand different methods of navigating CLI directories
+- Identify useful commands for managing files
+- Explain how these tools are useful for cybersecurity
+
+## Key Concepts
+
+| cd(change directory) | displays the current drive and folder(directory) |
+| dir | shows the folders and files inside the current folder(directory) |
+| tree | displays directories and subdirectories in a tree-like format |
+| mkdir | creates a new folder |
+| rmdir | deletes a folder, if it is empty |
+| type | displays the contents of a readable txt. file |
+| copy | makes a duplicate of a file in the same location |
+| move | moves the original file or folder to a another location, can also rename a file |
+| *(wildcard) | means show all items related to the command and parameters |
+
+## Environment
+Platform: TryHackMe  
+Operating System: Windows Server 2019
+Instance: Windows Command Line
+
+## Lab Walkthrough
+
+### Syntax: dir
+
+C:\Users\example>dir 
+ Volume in drive C has no label. 
+ Volume Serial Number is A8A4-C362
+
+ Directory of C:\Users\example
+
+05/01/2024  02:40 PM    <DIR>          .
+05/01/2024  02:40 PM    <DIR>          ..
+11/14/2018  06:56 AM    <DIR>          Desktop
+05/01/2024  02:40 PM    <DIR>          Documents
+09/15/2018  07:19 AM    <DIR>          Downloads
+09/15/2018  07:19 AM    <DIR>          Favorites
+09/15/2018  07:19 AM    <DIR>          Links
+09/15/2018  07:19 AM    <DIR>          Music
+09/15/2018  07:19 AM    <DIR>          Pictures
+09/15/2018  07:19 AM    <DIR>          Saved Games
+09/15/2018  07:19 AM    <DIR>          Videos
+               0 File(s)              0 bytes
+              11 Dir(s)  14,984,953,856 bytes free
+
+- ran the 'dir' command from C:\Users\exmaple
+- Windows listsed contents of the example folder
+- C Drive does not have a custom name in this instance
+- C Drive serial number identifier is A8A4-C362
+- each line shows the date the  data was last modified, whether it is a file or folder and the name of the directory
+- "." (the current directory)
+- ".."(the parent directory, the directory one level up. So that would be 'Users')
+- block shows shows common folders such as, Desktop and Pictures
+- 0 File(s) means there are currently no files in the current folder
+- 0 bytes because there are no data files, if there were files then it would show the total data amount in bytes
+- 11 Dir(s) is the total amount of directories
+- 14,984,953,856 bytes free(the total amount of free space on the C: drive)
+- syntax: dir /a(will display hidden systems and files)
+- syntax: dir /s(will display files in the current directory including any sub directories of the current directory
+
+### Syntax: tree
+
+C:\Users\example>tree
+Folder PATH listing
+Volume serial number is A8A4-C362
+C:.
+├───Desktop
+├───Documents
+├───Downloads
+├───Favorites
+├───Links
+├───Music
+├───Pictures
+├───Saved Games
+└───Videos
+- shows information similar to the 'dir' command. Shows the directory paths starting at the C: drive along with the subdirectories
+
+### Syntax: cd documents
+- moves the user into the documents folder, but does not show the contents of the folder
+
+### Syntax: mkdir backup_files
+
+C:\example>mkdir backup_files
+
+example@WIN-SRV-2019 C:\example>dir
+ Directory of C:\example
+
+05/02/2024  07:36 AM    <DIR>          .
+05/02/2024  07:36 AM    <DIR>          ..
+05/02/2024  07:36 AM    <DIR>          backup_files
+               0 File(s)              0 bytes
+               3 Dir(s)  14,984,724,480 bytes free
+
+- created a folder named "backup_files" inside C:\example
+- there are no files directly inside C:\example
+- there are now (3) directories listed
+
+## Security Relevance
+- administrators, security professionals and malicous actors interact with file systems
+- the ability to inspect, move and identify the contents of file systems is critical to investigation and incident response
+- malicious actors may attempt to create, rename, delete files so being able to notice normal vs. abnormal file location and disk usage is critical
+- In environments like servers and remote shells CLI is fastest inspection method
