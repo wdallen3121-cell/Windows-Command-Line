@@ -1,0 +1,198 @@
+# Command-Line Networking Tools
+
+## Lab Overview
+Explores the various CLI commands that can be used to gain information about the network a device is part of and some basic ways to troubleshoot the network
+
+## Objectives
+
+- Understand the information that is presented from various commands
+- Identify network details that can be used as baselines
+- Learn how to use arguments to present more information about a network
+
+## Key Concepts
+
+| ipconfig | provides configuration information about the network to which the device is currently connectected |
+| ping | used with either a hostname or IP address. Sends an ICMP packet to target to verify if it can be reached |
+| tracert| traces the network route that the ICMP packet traverses to reach a target system, showing each 'jump' taken on the way to the target |
+| nslookup | finds the IP address associated with a given host/domain name
+| netstat | displays the current network connections and listening ports. Can be altered to present more information by use of arguments such as -b, -o, -n |
+
+## Environment
+
+Platform: TryHackMe  
+Operating System: Windows Server 2019
+Instance: SSH login into a Windows command-line
+
+## ipconfig lab 
+
+### Syntax: ipconfig
+- screen presents Windows IP configuration
+  | Ethernet adapter Ethernet | Header information for the network interface, stating the values below belong to an Ethernet Adapter named Ethernet |
+  | Connection-Specific DNS Suffix | helps Windows resolve the IP address of a device on a network
+  | Link-Local IPv6 Addres | IPv6 address automatically given to the Ethernet adapter for communication on local network segments | 
+  | IPv4 Address | Ethernet adapter's unique identifier on a network, assigned to the computer by the router |
+  | Subnet Mask | helps identify whether an IP address belongs to the native local network or to a remote network.
+  | Default Gateway | IP address a device uses to connect to networks out of the native LAN. Often points to the router
+
+
+### Syntax: ipconfig /all
+- presents detailed configuration information along with the basic information presented in 'ipconfig'
+  | Description | name/model of the network adapater |
+  | Physical Address | adapter's MAC address |
+  | DHCP Enabled | states that the device is set to automatically receive IP address, subnet mask and default gateway from the DHCP server |
+  | Autoconfiguration Enabled | states that if DHCP fails, the OS will use APIPA(Automatic Private IP Addressing). Window will self-assign this 'local-only address' if DHCP fails |
+  | Lease Obtained | date and time the DHCP client received the current IP address |
+  | Lease Expires | date and time the IP addressed leased by the DHCP is scheduled to expire, unless renewed |
+  | DHCP Server | IP address of the device that assigned the current IP addresses |
+  | DHCPv6 IAID(Identity Association ID) | IPv6 identifier for the specific network adapter, when DHCPv6 is in use. |
+  | DHCPv6 Client DUID | DHCPv6 unique identifier for a client device, used to obtain an IPv6 address from the DHCPv6 server |
+  | DNS Servers | Servers a domain-joined device uses to translate host/domain names into IP addresses |
+  | NetBIOS over Tcpip | Legacy compatible feature that allows NetBIOS naming/services to run over TCP/IP
+
+### Syntax: ping example.com
+- tells windows to send ICMP packets to 'example.com'(each test packet is 32 bytes of data)
+- Windows resolves the domain name example.com into an IP address
+- Windows sends (4) ICMP packets by default
+- Windows receives (4) replies. (1) reply for each sent packet. Containing the following information:
+  - reply from xx.xxx.xxx.xx(the remote host responded
+  - bytes=32(the reply was (32) bytes)
+  - time=78ms( the time from send to reply took (78) ms)
+  - TTL(Time to Live)=52(value that limits how many network hops a packet can pass through)
+
+- Ping statistics for xx.xxx.xxx.xx:
+   - Packets: sent = 4, received = 4, Lost = 0 (0% loss)
+     - shows summary of the Ping
+       - Sent = 4(computer sent (4) ping packets)
+       - Received = 4(all (4) ping packets came back)
+       - Lost = 0(none were lost)
+       - 0% loss(the connection worked perfectly during this test
+
+Approximate round trip times in milli-seconds:
+    Minimum = 78ms, Maximum = 78ms, Average = 78ms
+    - timing summary
+      - Minimum = 78ms(fastest reply)
+      - Maximum = 78ms(slowest reply)
+      - Average = 78ms(average reply time)
+
+### Syntax: tracert(trace route)
+- used along with a target name(either hostname or IP address). Traces the network route traversed to reach the target system.
+- Windows resolves hostname to IP address
+59 ms    32 ms    42 ms  ec2-3-248-240-3.eu-west-1.compute.amazonaws.com 
+- will stop after (30) hops(if the packet never reaches the destination
+- first visible hop replied
+- Windows sent (3) probes with a TTL of 1
+- replies took (59)ms, (32)ms and (42)ms
+- hops (2 thru 8) did not send a reply back(before the timeout)
+  - these routers may be configured to not send back TTL-expired ICMP messages
+
+### Syntax: nslookup
+- looks up host/domain name
+- returns the IP address of the 'looked for host/domain name'
+
+Server:  ip-10-0-0-2.eu-west-1.compute.internal
+Address:  10.0.0.2
+
+Non-authoritative answer:
+Name:    example.com
+Addresses:  2606:2800:21f:cb07:6820:80da:af6b:8b2c
+          93.184.215.14 
+
+| Server | DNS server used for lookup |
+| Address | DNS server's IP address
+| Non-Authoritive Answer | DNS server replied to the lookup, but the server is not the original source for that domain name |
+| Name: | domain name that was looked up |
+| Addresses | IPv4 and IPv6 address associated with the host/domain name | 
+
+### Syntax: netstat (arguements -a, -n, -o, -b)
+- displays current established connections
+
+C:\>netstat
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State
+  TCP    10.10.230.237:22       ip-10-11-81-126:53486  ESTABLISHED
+
+- shows (1) active TCP connection
+| TCP | this connection is using TCP protocol, shown in the 'Proto' column |
+| Local Address | shows machine IP address and port number of the active session |
+| Foreign Address | remote system IP/port that your system to which you are connected |
+
+| netstat -a | displays ALL established connections and listening ports |
+| netstat -b | shows the program associated with each listening port and established connection |
+| netstat -o | reveals the process ID associated with the connection |
+| netstat -n | uses a numerical form for addresses and port numbers |
+| PID(Process ID) | unique number the OS assigns to the running processes, helps identify exact processes running on the system |
+
+# Key Takeaways
+- the common network commands reveal much information about how exactly the system is communicating within the network
+- while this information does not in itself point to any diagnosis, the information does allow an experienced user to infer about the condition of their network
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+## Security Relevance
+
+Why this matters for cybersecurity.
+
+Example:
+
+Active Directory is a primary target for attackers because it controls authentication and authorization across enterprise networks.
+
+Compromise of a Domain Controller can lead to full domain compromise.
+
+---
+
+## SOC Analyst Perspective
+
+What security teams monitor.
+
+- Suspicious login attempts
+- Privilege escalation
+- Account lockouts
+- Unusual authentication patterns
+
+---
+
+## Key Takeaways
+
+Summarize the main lessons learned.
+
+- Active Directory centralizes authentication
+- Domain controllers validate user identities
+- Monitoring authentication logs is critical for detecting attacks
+
+---
+
+## Skills Demonstrated
+
+- Windows environment analysis
+- Active Directory fundamentals
+- Authentication concepts
+- Security awareness
