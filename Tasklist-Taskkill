@@ -1,0 +1,67 @@
+# Task and Process Management
+
+## Lab Overview
+This lab explores how use CLI to complete task management without using a GUI
+
+## Objectives
+
+- Understand how these capabilities are relevant to cybersecurity
+- Identify the information types that are provided through use of commands
+- Learn the different commands and their arguements for Task Management
+
+## Key Concepts
+
+| tasklist | displays processes that are running currently on a system, such as applications, background services, system processes |
+| tasklist /FI | show processes that match a specific condition |
+| taskkill /PID | terminates a process by its process ID number
+
+## Environment
+
+Platform: TryHackMe  
+Operating System: Windows Server 2019
+Instance: Windows CLI
+
+## Lab Walkthrough
+
+### Syntax: tasklist
+
+C:\>tasklist
+
+Image Name                     PID Session Name        Session#    Mem Usage 
+========================= ======== ================ =========== ============
+System Idle Process              0 Services                   0          8 K
+System                           4 Services                   0         88 K
+Registry                        84 Services                   0     50,700 K
+smss.exe                       276 Services                   0      1,132 K
+csrss.exe                      372 Services                   0      5,264 K
+wininit.exe                    448 Services                   0      6,892 K
+csrss.exe                      456 Console                    1      5,028 K
+winlogon.exe                   516 Console                    1     11,144 K
+services.exe                   584 Services                   0      7,492 K
+lsass.exe                      592 Services                   0     16,108 K
+svchost.exe                    704 Services                   0     23,432 K
+fontdrvhost.exe                736 Console                    1      4,256 K
+[...]
+- each row shows a running process
+- PID(numeric identifier for the that process)
+- Session Name(shows the 'session a process belongs to such as background services or user session processes)
+- Session #(Numberic ID of a session.Another way other than the Session name to distinguish between Service and Console session.)
+- Mem Usage(amount of RAM in KB that each process is using)
+- System Idle Process(represents unused CPU time)
+- System(core Windows system process)
+- Registry(tied to Windows registry in memory)
+- smss.exe(session manager subsystem. Importnatn Windows startup/system process)
+- csrss.exe(Client Server Runtime Process. Windows system process)
+- wininit.exe(startup process)
+- winlogon.exe(handles logon-related windows functions)
+- services.exe( controls windows services)
+- lsass.exe(Local Security Subsystem Service. handles authentication and security policy)
+- svchost.exe(Windows runs services under this service)
+- fontdrvhost.exe(Windows font driver host process)
+
+### Syntax: taskkill /PID 2216
+- terminated the process with PID identity 2216
+
+## Security Relevance
+- tasklist can show unexpected executables, duplicate processes and processes using an unusual amount of memory
+- taskill can be used as a form of containment. malicious or abnormal processes can be termintated quickly
